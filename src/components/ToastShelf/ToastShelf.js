@@ -10,7 +10,7 @@ function ToastShelf() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
+      if (event.code === "Escape") {
         dismissAllToasts();
       }
     };
