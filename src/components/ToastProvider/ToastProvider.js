@@ -1,6 +1,6 @@
 import { createContext, useCallback, useState } from "react";
 
-import { useEscapeKey } from "../../hooks/useEscapeKey";
+import useKeyDown from "../../hooks/useKeyDown";
 
 export const ToastContext = createContext();
 
@@ -26,7 +26,7 @@ function ToastProvider({ children }) {
     setToasts([]);
   }, []);
 
-  useEscapeKey(dismissAllToasts);
+  useKeyDown("Escape", dismissAllToasts);
 
   return (
     <ToastContext.Provider value={{ toasts, popToast, dismissToast }}>
