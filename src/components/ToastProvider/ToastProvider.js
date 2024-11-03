@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ToastContext = createContext();
 
@@ -20,14 +20,22 @@ function ToastProvider({ children }) {
     setToasts(toasts.filter((toast) => toast.id !== id));
   };
 
-  const dismissAllToasts = () => {
-    setToasts([]);
-  };
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Escape") {
+        setToasts([]);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
-    <ToastContext.Provider
-      value={{ toasts, popToast, dismissToast, dismissAllToasts }}
-    >
+    <ToastContext.Provider value={{ toasts, popToast, dismissToast }}>
       {children}
     </ToastContext.Provider>
   );
