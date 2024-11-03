@@ -16,12 +16,18 @@ function ToastProvider({ children }) {
     ]);
   };
 
-  const handleDismiss = (id) => {
+  const dismissToast = (id) => {
     setToasts(toasts.filter((toast) => toast.id !== id));
   };
 
+  const dismissAllToasts = () => {
+    setToasts([]);
+  };
+
   return (
-    <ToastContext.Provider value={{ toasts, popToast, handleDismiss }}>
+    <ToastContext.Provider
+      value={{ toasts, popToast, dismissToast, dismissAllToasts }}
+    >
       {children}
     </ToastContext.Provider>
   );
